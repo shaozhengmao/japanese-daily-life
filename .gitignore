@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Node (如果将来引入)
+node_modules/
+dist/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志
+*.log
+
+# 音频文件（体积大，通过 GitHub 网页手动上传到仓库）
+# 如果你想把音频提交进来，注释掉下面这行
+audio/*.mp3
+
+# PDF 教材（通过 GitHub Releases 分发）
+*.pdf

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生活情境日语图解大百科 · 学习平台</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>" />
+</head>
+<body>
+
+<!-- ── 顶部导航 ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">📖</span>
+      <div>
+        <h1>生活情境日语</h1>
+        <p>图解大百科 · 音频学习平台</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-stats" id="headerStats">
+        <span class="stat-badge">加载中…</span>
+      </div>
+      <a class="pdf-download-btn" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest/download/生活情境日语图解大百科.pdf" target="_blank" rel="noopener" title="下载原版PDF教材">
+        ⬇ 下载教材 PDF
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ── 搜索 & 筛选栏 ── -->
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="搜索主题、日语词汇、中文含义…"
+        autocomplete="off"
+      />
+      <button class="clear-btn" id="clearSearch" title="清除">✕</button>
+    </div>
+    <div class="filter-wrap" id="categoryFilters">
+      <!-- 分类按钮由 JS 动态生成 -->
+    </div>
+  </div>
+</div>
+
+<!-- ── 主内容区 ── -->
+<main class="main-content">
+  <!-- 结果统计 -->
+  <div class="result-bar" id="resultBar"></div>
+
+  <!-- 卡片网格 -->
+  <div class="card-grid" id="cardGrid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>正在加载课程数据…</p>
+    </div>
+  </div>
+
+  <!-- 空状态 -->
+  <div class="empty-state hidden" id="emptyState">
+    <div class="empty-icon">🔎</div>
+    <p>没有找到匹配的内容</p>
+    <button onclick="resetFilters()">清除筛选条件</button>
+  </div>
+</main>
+
+<!-- ── 详情弹窗 ── -->
+<div class="modal-overlay hidden" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" onclick="closeModal()" title="关闭">✕</button>
+    <div class="modal-body" id="modalBody">
+      <!-- 由 JS 填充 -->
+    </div>
+  </div>
+</div>
+
+<!-- ── 回到顶部 ── -->
+<button class="back-top hidden" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<footer class="site-footer">
+  <p>《生活情境日语图解大百科》配套学习平台 · 音频 210 课 · 三栏对照笔记</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
