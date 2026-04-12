@@ -37,7 +37,7 @@ https://你的用户名.github.io/japanese-daily-life/
 
 ### 关于 PDF 教材
 
-PDF 通过 Releases 分发，点击网页上的「下载教材 PDF」按钮即可获取。
+PDF 通过 Releases 分发，可在仓库的 [Releases](../../releases) 页面下载。
 
 ---
 

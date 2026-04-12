@@ -79,23 +79,6 @@ a      { color: inherit; text-decoration: none; }
   font-size: .78rem;
   white-space: nowrap;
 }
-.pdf-download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.4);
-  border-radius: 20px;
-  padding: .3rem .9rem;
-  font-size: .78rem;
-  color: var(--white);
-  white-space: nowrap;
-  transition: background var(--transition), border-color var(--transition);
-}
-.pdf-download-btn:hover {
-  background: rgba(255,255,255,.28);
-  border-color: rgba(255,255,255,.7);
-}
 
 /* ── 工具栏 ── */
 .toolbar {
