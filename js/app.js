@@ -219,13 +219,8 @@ function renderModalContent(t) {
   const titleParts = splitTitle(t.title);
   const audioPath = t.audio || `audio/Track ${numStr}.mp3`;
 
-  // 三栏表格
-  const tableRows = (t.table || []).map(row => `
-    <tr>
-      <td class="td-ja">${escHtml(row.ja)}</td>
-      <td class="td-roma">${escHtml(row.romaji)}</td>
-      <td class="td-zh">${escHtml(row.zh)}</td>
-    </tr>`).join('');
+  // 三栏表格（处理多词汇用顿号分隔的情况）
+  const tableRows = generateTableRows(t.table);
 
   // 词汇表
   const vocabRows = (t.vocab || []).map(v => `
@@ -365,6 +360,37 @@ function formatCultureText(text) {
   });
 
   return formattedParagraphs.join('');
+}
+
+// 生成三栏表格行（处理多词汇用顿号/逗号分隔的情况）
+function generateTableRows(table) {
+  if (!table || table.length === 0) return '';
+
+  // 检查是否是单条记录但包含多个用顿号/逗号分隔的词汇
+  if (table.length === 1) {
+    const row = table[0];
+    const jaItems = row.ja ? row.ja.split(/[、,]/) : [];
+    const romaItems = row.romaji ? row.romaji.split(/[、,]/) : [];
+    const zhItems = row.zh ? row.zh.split(/[、,]/) : [];
+
+    // 如果检测到多条（至少2条），则按词汇分行显示
+    if (jaItems.length >= 2 && jaItems.length === romaItems.length && jaItems.length === zhItems.length) {
+      return jaItems.map((ja, i) => `
+        <tr>
+          <td class="td-ja">${escHtml(ja.trim())}</td>
+          <td class="td-roma">${escHtml(romaItems[i]?.trim() || '')}</td>
+          <td class="td-zh">${escHtml(zhItems[i]?.trim() || '')}</td>
+        </tr>`).join('');
+    }
+  }
+
+  // 正常情况：按行显示
+  return table.map(row => `
+    <tr>
+      <td class="td-ja">${escHtml(row.ja)}</td>
+      <td class="td-roma">${escHtml(row.romaji)}</td>
+      <td class="td-zh">${escHtml(row.zh)}</td>
+    </tr>`).join('');
 }
 
 function escRegex(str) {
