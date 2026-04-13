@@ -356,14 +356,15 @@ function formatCultureText(text) {
   // 处理粗体 **文本**
   result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-  // 处理连续的换行（双换行变成段落分隔）
-  result = result.replace(/\n\n+/g, '</p><p style="margin-top:.6rem;margin-bottom:.6rem">');
+  // 按双换行分割成段落，分别处理
+  const paragraphs = result.split(/\n\n+/);
+  const formattedParagraphs = paragraphs.map(para => {
+    // 将段落内的单换行转换为 <br>
+    const withBr = para.replace(/\n/g, '<br>');
+    return `<p style="margin:0;margin-bottom:.6rem">${withBr}</p>`;
+  });
 
-  // 将剩余的换行转换为 <br>
-  result = result.replace(/\n/g, '<br>');
-
-  // 包裹在段落标签中
-  return `<p style="margin:0">${result}</p>`;
+  return formattedParagraphs.join('');
 }
 
 function escRegex(str) {
