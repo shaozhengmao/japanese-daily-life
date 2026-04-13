@@ -495,10 +495,16 @@ a      { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, #fff9f9 0%, #fff 100%);
   border-left: 3px solid var(--red);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: .85rem 1rem;
+  padding: 1rem 1.1rem;
   font-size: .88rem;
   color: var(--text2);
   line-height: 1.7;
+}
+.culture-box p {
+  margin: 0;
+}
+.culture-box p + p {
+  margin-top: .8rem;
 }
 
 /* 对话 */

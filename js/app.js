@@ -247,7 +247,7 @@ function renderModalContent(t) {
 
   // 文化注释
   const cultureHtml = t.culture
-    ? `<div class="culture-box">${escHtml(t.culture)}</div>`
+    ? `<div class="culture-box">${formatCultureText(t.culture)}</div>`
     : '<p style="color:var(--text3);font-size:.88rem">暂无文化注释</p>';
 
   return `
@@ -329,6 +329,41 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// 格式化文化背景文本（支持 Markdown 格式）
+function formatCultureText(text) {
+  if (!text) return '';
+
+  // 先转义 HTML
+  let result = escHtml(text);
+
+  // 处理三级标题 ### 标题
+  result = result.replace(/^###\s+(.+)$/gm, '<strong style="font-size:1rem;color:var(--text);display:block;margin-top:1rem;margin-bottom:.4rem">$1</strong>');
+
+  // 处理二级标题 ## 标题
+  result = result.replace(/^##\s+(.+)$/gm, '<strong style="font-size:1.1rem;color:var(--text);display:block;margin-top:1.2rem;margin-bottom:.5rem;border-bottom:1px solid var(--border);padding-bottom:.2rem">$1</strong>');
+
+  // 处理一级标题 # 标题
+  result = result.replace(/^#\s+(.+)$/gm, '<strong style="font-size:1.2rem;color:var(--red);display:block;margin-top:1.4rem;margin-bottom:.6rem">$1</strong>');
+
+  // 处理无序列表 - 项目
+  result = result.replace(/^-\s+(.+)$/gm, '<div style="margin-left:1.2rem;padding-left:.5rem;border-left:2px solid var(--red-light);margin-bottom:.3rem">$1</div>');
+
+  // 处理有序列表 1. 项目
+  result = result.replace(/^\d+\.\s+(.+)$/gm, '<div style="margin-left:1.2rem;padding-left:.5rem;border-left:2px solid var(--red-light);margin-bottom:.3rem">$1</div>');
+
+  // 处理粗体 **文本**
+  result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  // 处理连续的换行（双换行变成段落分隔）
+  result = result.replace(/\n\n+/g, '</p><p style="margin-top:.6rem;margin-bottom:.6rem">');
+
+  // 将剩余的换行转换为 <br>
+  result = result.replace(/\n/g, '<br>');
+
+  // 包裹在段落标签中
+  return `<p style="margin:0">${result}</p>`;
 }
 
 function escRegex(str) {
