@@ -9,13 +9,10 @@ let allTracks   = [];   // 完整索引数据
 let fullData    = {};   // id → 详情数据（懒加载）
 let filtered    = [];   // 当前筛选结果
 let activeCategory = 'all';
-let searchQuery    = '';
 let fullDataLoaded = false;
 
 // ── DOM 引用 ──────────────────────────────────────────────────────────────────
 const cardGrid       = document.getElementById('cardGrid');
-const searchInput    = document.getElementById('searchInput');
-const clearSearch    = document.getElementById('clearSearch');
 const categoryFilters= document.getElementById('categoryFilters');
 const resultBar      = document.getElementById('resultBar');
 const headerStats    = document.getElementById('headerStats');
@@ -74,31 +71,10 @@ function setCategory(cat) {
   applyFilters();
 }
 
-// ── 搜索 ──────────────────────────────────────────────────────────────────────
-searchInput.addEventListener('input', () => {
-  searchQuery = searchInput.value.trim().toLowerCase();
-  applyFilters();
-});
-
-clearSearch.addEventListener('click', () => {
-  searchInput.value = '';
-  searchQuery = '';
-  applyFilters();
-  searchInput.focus();
-});
-
 // ── 筛选逻辑 ──────────────────────────────────────────────────────────────────
 function applyFilters() {
   filtered = allTracks.filter(t => {
-    const catOk = activeCategory === 'all' || t.category === activeCategory;
-    if (!catOk) return false;
-    if (!searchQuery) return true;
-
-    const haystack = [
-      t.title, t.topic, t.category, t.preview,
-      String(t.id).padStart(3, '0'),
-    ].join(' ').toLowerCase();
-    return haystack.includes(searchQuery);
+    return activeCategory === 'all' || t.category === activeCategory;
   });
 
   renderCards();
@@ -106,8 +82,6 @@ function applyFilters() {
 }
 
 function resetFilters() {
-  searchInput.value = '';
-  searchQuery = '';
   setCategory('all');
 }
 window.resetFilters = resetFilters;
@@ -121,7 +95,6 @@ function renderCards() {
   }
   emptyState.classList.add('hidden');
 
-  const q = searchQuery;
   cardGrid.innerHTML = filtered.map(t => {
     const numStr = String(t.id).padStart(3, '0');
     const dur = t.duration > 0 ? `🎵 ${t.duration.toFixed(0)}秒` : '🎵 音频';
@@ -137,10 +110,10 @@ function renderCards() {
         <span class="cat-tag">${escHtml(t.category)}</span>
       </div>
       <div class="card-title">
-        ${highlight(titleParts.zh || t.title, q)}
-        ${titleParts.ja ? `<span class="ja">${highlight(titleParts.ja, q)}</span>` : ''}
+        ${escHtml(titleParts.zh || t.title)}
+        ${titleParts.ja ? `<span class="ja">${escHtml(titleParts.ja)}</span>` : ''}
       </div>
-      ${preview ? `<div class="card-preview">${highlight(preview, q)}</div>` : ''}
+      ${preview ? `<div class="card-preview">${escHtml(preview)}</div>` : ''}
       <div class="card-footer">
         <span class="duration-badge">${dur}</span>
         <span class="play-hint">▶ 点击学习</span>
@@ -162,19 +135,11 @@ function splitTitle(title) {
   return { zh: '', ja: title };
 }
 
-// ── 搜索高亮 ──────────────────────────────────────────────────────────────────
-function highlight(text, query) {
-  if (!query || !text) return escHtml(text);
-  const escaped = escRegex(query);
-  return escHtml(text).replace(new RegExp(escRegex(escHtml(query)), 'gi'),
-    m => `<mark>${m}</mark>`);
-}
-
 // ── 统计栏 ────────────────────────────────────────────────────────────────────
 function updateResultBar() {
   const total = allTracks.length;
   const shown = filtered.length;
-  if (searchQuery || activeCategory !== 'all') {
+  if (activeCategory !== 'all') {
     resultBar.textContent = `找到 ${shown} / ${total} 条结果`;
   } else {
     resultBar.textContent = `共 ${total} 课，涵盖 210 个音频主题`;

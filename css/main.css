@@ -560,19 +560,62 @@ a      { color: inherit; text-decoration: none; }
 .hidden { display: none !important; }
 
 /* ── 响应式 ── */
+@media (max-width: 768px) {
+  .header-inner { height: 58px; padding: 0 1rem; }
+  .logo h1 { font-size: 1.05rem; }
+  .logo p  { display: none; }
+  .toolbar { padding: .6rem 1rem; top: 58px; }
+  .toolbar-inner { gap: .5rem; }
+  .card-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .filter-btn { padding: .3rem .7rem; font-size: .78rem; }
+  .modal-body { padding: 1.1rem; }
+  .modal-title { font-size: 1.25rem; }
+  .tab-btn { padding: .45rem .85rem; font-size: .85rem; }
+  .sanlan-table th, .sanlan-table td { padding: .45rem .6rem; }
+}
+
 @media (max-width: 640px) {
   .header-inner { height: 56px; }
   .logo h1 { font-size: 1rem; }
-  .logo p  { display: none; }
-  .toolbar { top: 56px; }
+  .logo-icon { font-size: 1.6rem; }
   .card-grid { grid-template-columns: 1fr; }
+  .main-content { padding: 1rem 1rem 3rem; }
   .modal-body { padding: 1rem; }
   .modal-title { font-size: 1.15rem; }
-  .tab-btn { padding: .45rem .75rem; font-size: .82rem; }
+  .modal-title .ja { font-size: .9rem; }
+  .tab-btn { padding: .4rem .7rem; font-size: .82rem; }
+  .audio-player { padding: .6rem .8rem; }
+  .audio-player audio { min-width: 160px; }
+  .sanlan-table th, .sanlan-table td { padding: .4rem .5rem; }
+  .vocab-table th, .vocab-table td { padding: .4rem .5rem; }
+  .culture-box { padding: .85rem .9rem; }
+  .dialog-item { flex-direction: column; gap: .3rem; }
+  .dialog-speaker { display: inline-block; margin-top: 0; }
 }
 
 @media (max-width: 480px) {
   .header-stats { display: none; }
+  .header-inner { padding: 0 .75rem; }
+  .toolbar { padding: .5rem .75rem; }
+  .main-content { padding: .85rem .75rem 2.5rem; }
+  .track-card { padding: .9rem; }
+  .card-title { font-size: .9rem; }
+  .card-preview { font-size: .78rem; }
+  .modal-body { padding: .85rem; }
+  .modal-title { font-size: 1.05rem; }
+  .modal-title .ja { font-size: .85rem; display: block; margin-top: .2rem; margin-left: 0; }
+  .modal-cat { font-size: .75rem; margin-bottom: .85rem; }
+  .tab-btn { padding: .4rem .6rem; font-size: .78rem; }
+  .sanlan-table, .vocab-table { font-size: .8rem; }
+  .td-ja { font-size: .88rem; }
+  .td-roma { font-size: .78rem; }
+  .vocab-table th, .vocab-table td { padding: .35rem .4rem; }
+  .vocab-word { font-size: .85rem; }
+  .vocab-pos { font-size: .7rem; padding: .08rem .35rem; }
+  .culture-box { padding: .75rem; font-size: .84rem; }
+  .dialog-text { font-size: .86rem; }
+  .back-top { bottom: 1.5rem; right: 1rem; width: 36px; height: 36px; font-size: 1rem; }
+  .site-footer { padding: 1.2rem .75rem; font-size: .76rem; }
 }
 
 /* ── 搜索高亮 ── */
