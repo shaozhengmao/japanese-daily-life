@@ -369,9 +369,10 @@ function generateTableRows(table) {
   // 检查是否是单条记录但包含多个用顿号/逗号分隔的词汇
   if (table.length === 1) {
     const row = table[0];
-    const jaItems = row.ja ? row.ja.split(/[、,]/) : [];
-    const romaItems = row.romaji ? row.romaji.split(/[、,]/) : [];
-    const zhItems = row.zh ? row.zh.split(/[、,]/) : [];
+    // 使用更灵活的分隔符：顿号、逗号（可选空格）、或逗号+空格组合
+    const jaItems = row.ja ? row.ja.split(/[、,]\s*/).filter(s => s.trim()) : [];
+    const romaItems = row.romaji ? row.romaji.split(/[、,]\s*/).filter(s => s.trim()) : [];
+    const zhItems = row.zh ? row.zh.split(/[、,]\s*/).filter(s => s.trim()) : [];
 
     // 如果检测到多条（至少2条），则按词汇分行显示
     if (jaItems.length >= 2 && jaItems.length === romaItems.length && jaItems.length === zhItems.length) {
